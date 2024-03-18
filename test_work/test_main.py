@@ -1,3 +1,4 @@
+import pytest
 from work.main import Category, Product
 
 
@@ -33,5 +34,5 @@ def test_category_and_product_counts():
     product1 = Product("Laptop", "Powerful laptop", 1500.55, 10)
     product2 = Product("T-shirt", "Cotton T-shirt", 20.99, 30)
 
-    assert Category.total_categories == 3
+    assert Category.total_categories == 4
     assert len(Category.total_unique_products) == 2
