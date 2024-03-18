@@ -1,4 +1,4 @@
-class Category():
+class Category:
     name: str
     description: str
     goods: str
@@ -13,7 +13,7 @@ class Category():
         Category.total_categories += 1
 
 
-class Product():
+class Product:
     name: str
     description: str
     price: float
@@ -25,6 +25,3 @@ class Product():
         self.price = price
         self.quantity = quantity
         Category.total_unique_products.add(name)
-
-
-
