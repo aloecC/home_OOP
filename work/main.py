@@ -9,8 +9,18 @@ class Category:
     def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.products = []
+        self.__products = []
         Category.total_categories += 1
+
+    def add_product(self, product):
+        self.__products.append(product)
+
+    @property
+    def products_list(self):
+        products_info = []
+        for product in self.__products:
+            products_info.append(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.")
+        return products_info
 
 
 class Product:
@@ -22,6 +32,30 @@ class Product:
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
         Category.total_unique_products.add(name)
+
+    @staticmethod
+    def create_new_product(name, description, price, quantity):
+        return Product(name, description, price, quantity)
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, new_price):
+        if new_price > 0:
+            if new_price < self.__price:
+                confirmation = input("Вы уверены, что хотите понизить цену? (yes/no): ")
+                if confirmation.lower() == "yes":
+                    self.__price = new_price
+                    print("Цена успешно изменена.")
+                else:
+                    print("Действие отменено.")
+            else:
+                self.__price = new_price
+                print("Цена успешно изменена.")
+        else:
+            print("Ошибка: Цена введена некорректно.")

@@ -9,7 +9,7 @@ def test_category_initialization():
     category = Category("Electronics", "Category for electronics")
     assert category.name == "Electronics"
     assert category.description == "Category for electronics"
-    assert len(category.products) == 0
+    assert category.total_categories == 1
 
 
 def test_product_initialization():
@@ -36,3 +36,28 @@ def test_category_and_product_counts():
 
     assert Category.total_categories == 4
     assert len(Category.total_unique_products) == 2
+
+
+def test_category_add_product():
+    category = Category("Electronics", "Category for electronic devices")
+    product = Product("Laptop", "High-performance laptop", 1500, 10)
+    category.add_product(product)
+    assert len(category.products_list) == 1
+    assert category.products_list[0] == "Laptop, 1500 руб. Остаток: 10 шт."
+
+
+def test_product_creation():
+    product = Product("Smartphone", "Latest smartphone model", 1000, 20)
+    assert product.name == "Smartphone"
+
+
+def test_price_setter_increase():
+    product = Product("Laptop", "High-performance laptop", 1500.0, 10)
+    product.price = 1600.0
+    assert product.price == 1600.0
+
+    product.price = -100.0
+    assert product.price == 1600.0
+
+
+
