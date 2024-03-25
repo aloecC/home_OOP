@@ -12,6 +12,12 @@ class Category:
         self.__products = []
         Category.total_categories += 1
 
+    def __str__(self):
+        return f'{self.name}, количество продуктов: {len(self)} шт.'
+
+    def __len__(self):
+        return len(self.__products)
+
     def add_product(self, product):
         self.__products.append(product)
 
@@ -27,7 +33,7 @@ class Product:
     name: str
     description: str
     price: float
-    quantity_in_stock: int
+    quantity: int
 
     def __init__(self, name, description, price, quantity):
         self.name = name
@@ -35,6 +41,15 @@ class Product:
         self.__price = price
         self.quantity = quantity
         Category.total_unique_products.add(name)
+
+    def __len__(self):
+        return self.quantity  # я не понимаю зачем тут len, если мы работаем по сути со счетчиком
+
+    def __str__(self):
+        return f'{self.name}, {self.__price} руб. Остаток на складе:{self.quantity} шт.'
+
+    def __add__(self, other):
+        return eval(f"{self.__price} * {self.quantity} + {other.__price} * {other.quantity}")
 
     @staticmethod
     def create_new_product(name, description, price, quantity):
@@ -59,3 +74,12 @@ class Product:
                 print("Цена успешно изменена.")
         else:
             print("Ошибка: Цена введена некорректно.")
+
+
+product = Product("Laptop", "High-performance laptop", 1500.0, 10)
+print(product)
+
+category = Category("Electronics", "Category for electronics")
+product = Product("Laptop", "High-performance laptop", 1500, 10)
+category.add_product(product)
+print(category)

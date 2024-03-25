@@ -60,4 +60,19 @@ def test_price_setter_increase():
     assert product.price == 1600.0
 
 
+def test_string_display_product():
+    product = Product("Laptop", "High-performance laptop", 1500.0, 10)
+    assert print(product) == 'Laptop, 1500.0 руб. Остаток на складе:10 шт.'
 
+
+def test_string_display_category():
+    category = Category("Electronics", "Category for electronics")
+    product = Product("Laptop", "High-performance laptop", 1500, 10)
+    category.add_product(product)
+    assert print(category) == 'Electronics, количество продуктов: 1 шт.'
+
+
+def test_food_addition():
+    product_1 = Product("Laptop", "High-performance laptop", 1500.0, 10)
+    product_2 = Product("Smartphone", "Latest smartphone model", 1000, 20)
+    assert product_1 + product_2 == 35000.0
