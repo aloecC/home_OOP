@@ -76,10 +76,3 @@ class Product:
             print("Ошибка: Цена введена некорректно.")
 
 
-product = Product("Laptop", "High-performance laptop", 1500.0, 10)
-print(product)
-
-category = Category("Electronics", "Category for electronics")
-product = Product("Laptop", "High-performance laptop", 1500, 10)
-category.add_product(product)
-print(category)
