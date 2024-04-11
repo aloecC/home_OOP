@@ -19,7 +19,10 @@ class Category:
         return len(self.__products)
 
     def add_product(self, product):
-        self.__products.append(product)
+        if isinstance(product, Product) or issubclass(type(product), Product):
+            self.__products.append(product)
+        else:
+            raise TypeError("Можно добавлять только объекты класса Product или его наследников")
 
     @property
     def products_list(self):
@@ -49,7 +52,9 @@ class Product:
         return f'{self.name}, {self.__price} руб. Остаток на складе:{self.quantity} шт.'
 
     def __add__(self, other):
-        return eval(f"{self.__price} * {self.quantity} + {other.__price} * {other.quantity}")
+        if type(self) is type(other):
+            return self.__price * self.quantity + other.__price * other.quantity
+        raise TypeError("Нельзя складывать товары разных классов")
 
     @staticmethod
     def create_new_product(name, description, price, quantity):

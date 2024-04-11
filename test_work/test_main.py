@@ -1,5 +1,5 @@
 import pytest
-from work.main import Category, Product
+from work.main import Category, Product, Smartphone, LawnGrass
 
 
 def test_category_initialization():
@@ -21,6 +21,32 @@ def test_product_initialization():
     assert product.description == "Powerful laptop"
     assert product.price == 1500.55
     assert product.quantity == 10
+
+
+def test_smartphone_initialization():
+    smartphone = Smartphone('Iphone', 'technique', 85000, 15, '6 ядер', '12PRO', '128ГБ', "black")
+    assert smartphone.name == "Iphone"
+    assert smartphone.description == "technique"
+    assert smartphone.price == 85000
+    assert smartphone.quantity == 15
+    assert smartphone.performance == '6 ядер'
+    assert smartphone.model == '12PRO'
+    assert smartphone.amount_of_built_in_memory == '128ГБ'
+    assert smartphone.color == "black"
+
+
+def test_lawn_grass_initialization():
+    lawngrass = LawnGrass('short', 'for the dacha', 8000, 15, 'USA', '1 год', 'green')
+    assert lawngrass.name == "short"
+    assert lawngrass.description == 'for the dacha'
+    assert lawngrass.price == 8000
+    assert lawngrass.quantity == 15
+    assert lawngrass.manufacturer_country == 'USA'
+    assert lawngrass.germination_period == '1 год'
+    assert lawngrass.color == 'green'
+
+
+
 
 
 def test_category_and_product_counts():
