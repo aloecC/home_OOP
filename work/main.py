@@ -74,3 +74,20 @@ class Product:
                 print("Цена успешно изменена.")
         else:
             print("Ошибка: Цена введена некорректно.")
+
+
+class Smartphone(Product):
+    def __init__(self, name, description, price, quantity, performance, model, amount_of_built_in_memory, color):
+        super().__init__(name, description, price, quantity)
+        self.performance = performance
+        self.model = model
+        self.amount_of_built_in_memory = amount_of_built_in_memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.manufacturer_country = manufacturer_country
+        self.germination_period = germination_period
+        self.color = color
