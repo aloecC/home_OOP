@@ -46,9 +46,6 @@ def test_lawn_grass_initialization():
     assert lawngrass.color == 'green'
 
 
-
-
-
 def test_category_and_product_counts():
     """
     Проверяет правильность подсчета количества категорий и продуктов
@@ -102,3 +99,10 @@ def test_food_addition():
     product_1 = Product("Laptop", "High-performance laptop", 1500.0, 10)
     product_2 = Product("Smartphone", "Latest smartphone model", 1000, 20)
     assert product_1 + product_2 == 35000.0
+
+
+def test_new_product():
+    lawn_grass1 = LawnGrass('Трава1', 'Описание травы', 20, 100, 'Country A', '2 weeks', 'Green')
+    print(lawn_grass1) == 'Создан объект класса LawnGrass\nС атрибутами:name=Трава1, description=Описание травы, _Product__price=20, quantity=100, manufacturer_country=Country A, germination_period=2 weeks, color=Green'
+    smartphone1 = Smartphone('Смартфон1', 'Описание смартфона', 1000, 5, 'High', 'Model X', '64GB', 'Black')
+    print(smartphone1) == 'Создан объект класса Smartphone\nС атрибутами:name=Смартфон1, description=Описание смартфона, _Product__price=1000, quantity=5, performance=High, model=Model X, amount_of_built_in_memory=64GB, color=Black'

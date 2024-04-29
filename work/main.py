@@ -1,3 +1,12 @@
+from abc import ABC, abstractmethod
+
+
+class InfoMixin:
+    def __repr__(self):
+        attr_list = [f"{key}={value}" for key, value in self.__dict__.items()]
+        return f"Создан объект класса {self.__class__.__name__}\nС атрибутами:{', '.join(attr_list)}"
+
+
 class Category:
     name: str
     description: str
@@ -32,13 +41,15 @@ class Category:
         return products_info
 
 
-class Product:
+class Product(ABC):
     name: str
     description: str
     price: float
     quantity: int
 
+    @abstractmethod
     def __init__(self, name, description, price, quantity):
+        super().__init__()
         self.name = name
         self.description = description
         self.__price = price
@@ -48,8 +59,8 @@ class Product:
     def __len__(self):
         return self.quantity  # я не понимаю зачем тут len, если мы работаем по сути со счетчиком
 
-    def __str__(self):
-        return f'{self.name}, {self.__price} руб. Остаток на складе:{self.quantity} шт.'
+    # def __str__(self):
+    # return f'{self.name}, {self.__price} руб. Остаток на складе:{self.quantity} шт.'
 
     def __add__(self, other):
         if type(self) is type(other):
@@ -81,7 +92,7 @@ class Product:
             print("Ошибка: Цена введена некорректно.")
 
 
-class Smartphone(Product):
+class Smartphone(Product, InfoMixin):
     def __init__(self, name, description, price, quantity, performance, model, amount_of_built_in_memory, color):
         super().__init__(name, description, price, quantity)
         self.performance = performance
@@ -90,9 +101,25 @@ class Smartphone(Product):
         self.color = color
 
 
-class LawnGrass(Product):
+class LawnGrass(Product, InfoMixin):
     def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
         super().__init__(name, description, price, quantity)
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
+
+
+class OrderableItem(ABC):
+    def __init__(self, item_link, item_quantity, total_price):
+        self.item_link = item_link
+        self.item_quantity = item_quantity
+        self.total_price = total_price
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+class Order(OrderableItem):
+    def __str__(self):
+        return f'Заказ: {self.item_link}\nКоличество: {self.item_quantity}\nИтоговая стоимость: {self.total_price}'
+
