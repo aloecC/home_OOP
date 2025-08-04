@@ -6,6 +6,10 @@ class InfoMixin:
         attr_list = [f"{key}={value}" for key, value in self.__dict__.items()]
         return f"Создан объект класса {self.__class__.__name__}\nС атрибутами:{', '.join(attr_list)}"
 
+    def show_info(self):
+        info = f"Название: {self.name}\nОписание: {self.description}\nЦена: {self.price}\nКоличество: {self.quantity}"
+        return info
+
 
 class Category:
     name: str
@@ -56,8 +60,12 @@ class Product(ABC):
         self.quantity = quantity
         Category.total_unique_products.add(name)
 
+    @abstractmethod
+    def get_info(self):
+        pass
+
     def __len__(self):
-        return self.quantity  # я не понимаю зачем тут len, если мы работаем по сути со счетчиком
+        return self.quantity
 
     # def __str__(self):
     # return f'{self.name}, {self.__price} руб. Остаток на складе:{self.quantity} шт.'
@@ -100,6 +108,12 @@ class Smartphone(Product, InfoMixin):
         self.amount_of_built_in_memory = amount_of_built_in_memory
         self.color = color
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.price}', '{self.quantity}', {self.description})"
+
+    def get_info(self):
+        return f"{super().show_info()}\nПроизводительность: {self.performance}\nМодель: {self.model}\nОбъем встроенной памяти: {self.amount_of_built_in_memory}\nЦвет: {self.color}"
+
 
 class LawnGrass(Product, InfoMixin):
     def __init__(self, name, description, price, quantity, manufacturer_country, germination_period, color):
@@ -107,6 +121,12 @@ class LawnGrass(Product, InfoMixin):
         self.manufacturer_country = manufacturer_country
         self.germination_period = germination_period
         self.color = color
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}('{self.price}', '{self.quantity}', {self.description})"
+
+    def get_info(self):
+        return f"{super().show_info()}\nСтрана производитель: {self.manufacturer_country}\nПериод прорастания: {self.germination_period}\nЦвет: {self.color}"
 
 
 class OrderableItem(ABC):
@@ -123,3 +143,4 @@ class Order(OrderableItem):
     def __str__(self):
         return f'Заказ: {self.item_link}\nКоличество: {self.item_quantity}\nИтоговая стоимость: {self.total_price}'
 
+''
