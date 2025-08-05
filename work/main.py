@@ -44,14 +44,18 @@ class Category:
             products_info.append(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.")
         return products_info
 
+class ProductABC(ABC):
+    @abstractmethod
+    def get_info(self):
+        pass
 
-class Product(ABC):
+class Product(ProductABC):
     name: str
     description: str
     price: float
     quantity: int
 
-    @abstractmethod
+
     def __init__(self, name, description, price, quantity):
         super().__init__()
         self.name = name
@@ -59,10 +63,6 @@ class Product(ABC):
         self.__price = price
         self.quantity = quantity
         Category.total_unique_products.add(name)
-
-    @abstractmethod
-    def get_info(self):
-        pass
 
     def __len__(self):
         return self.quantity
@@ -108,8 +108,6 @@ class Smartphone(Product, InfoMixin):
         self.amount_of_built_in_memory = amount_of_built_in_memory
         self.color = color
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}('{self.price}', '{self.quantity}', {self.description})"
 
     def get_info(self):
         return f"{super().show_info()}\nПроизводительность: {self.performance}\nМодель: {self.model}\nОбъем встроенной памяти: {self.amount_of_built_in_memory}\nЦвет: {self.color}"
@@ -122,8 +120,6 @@ class LawnGrass(Product, InfoMixin):
         self.germination_period = germination_period
         self.color = color
 
-    def __repr__(self):
-        return f"{self.__class__.__name__}('{self.price}', '{self.quantity}', {self.description})"
 
     def get_info(self):
         return f"{super().show_info()}\nСтрана производитель: {self.manufacturer_country}\nПериод прорастания: {self.germination_period}\nЦвет: {self.color}"
