@@ -57,6 +57,8 @@ class Product(ProductABC):
 
 
     def __init__(self, name, description, price, quantity):
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
         super().__init__()
         self.name = name
         self.description = description
