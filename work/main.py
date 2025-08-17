@@ -44,6 +44,16 @@ class Category:
             products_info.append(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.")
         return products_info
 
+    def average_price(self):
+        try:
+            if len(self.__products) == 0:
+                return 0  # Возвращаем 0, если нет товаров
+            total_price = sum(product.price for product in self.__products)
+            average = total_price / len(self.__products)
+            return average
+        except ZeroDivisionError:
+            return 0  # На всякий случай, хотя этот случай не должен возникать, если выше проверка сработала
+
 class ProductABC(ABC):
     @abstractmethod
     def get_info(self):
