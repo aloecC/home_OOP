@@ -11,6 +11,7 @@ class InfoMixin:
         return info
 
 
+
 class Category:
     name: str
     description: str
