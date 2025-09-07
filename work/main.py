@@ -12,6 +12,7 @@ class InfoMixin:
 
 
 
+
 class Category:
     name: str
     description: str
@@ -19,6 +20,7 @@ class Category:
 
     total_categories = 0
     total_unique_products = set()
+
 
     def __init__(self, name, description):
         self.name = name
@@ -29,8 +31,10 @@ class Category:
     def __str__(self):
         return f'{self.name}, количество продуктов: {len(self)} шт.'
 
+
     def __len__(self):
         return len(self.__products)
+
 
     def add_product(self, product):
         if isinstance(product, Product) or issubclass(type(product), Product):
