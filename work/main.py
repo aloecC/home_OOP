@@ -32,6 +32,7 @@ class Category:
     def __len__(self):
         return len(self.__products)
 
+
     def add_product(self, product):
         if isinstance(product, Product) or issubclass(type(product), Product):
             self.__products.append(product)
