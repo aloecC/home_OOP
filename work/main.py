@@ -27,7 +27,7 @@ class Category:
         Category.total_categories += 1
 
     def __str__(self):
-        return f'{self.name}, количество продуктов: {len(self)} шт.'
+        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
 
     def __len__(self):
         return len(self.__products)

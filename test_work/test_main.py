@@ -85,7 +85,7 @@ def test_price_setter_increase():
 
 def test_string_display_product():
     product = Product("Laptop", "High-performance laptop", 1500.0, 10)
-    assert str(product) == 'Laptop, 1500.0 руб. Остаток на складе:10 шт.'
+    assert str(product) == 'Laptop, 1500.0 руб. Остаток:10 шт.'
 
 
 def test_string_display_category():
