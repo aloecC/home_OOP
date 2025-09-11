@@ -77,11 +77,12 @@ class Product(ProductABC):
         self.quantity = quantity
         Category.total_unique_products.add(name)
 
+
     def __len__(self):
         return self.quantity
 
-    # def __str__(self):
-    # return f'{self.name}, {self.__price} руб. Остаток на складе:{self.quantity} шт.'
+    def __str__(self):
+        return f'{self.name}, {self.__price} руб. Остаток: {self.quantity} шт'
 
     def __add__(self, other):
         if type(self) is type(other):
