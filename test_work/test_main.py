@@ -70,8 +70,10 @@ def test_category_add_product():
 
 
 def test_product_creation():
-    product = Product("Smartphone", "Latest smartphone model", 1000, 20)
-    assert product.name == "Smartphone"
+    product = Product.create_new_product("Tablet", "A tablet device", 300.0, 8)
+    assert product.name == "Tablet"
+    assert product.price == 300.0
+    assert product.quantity == 8
 
 
 def test_price_setter_increase():
@@ -85,14 +87,25 @@ def test_price_setter_increase():
 
 def test_string_display_product():
     product = Product("Laptop", "High-performance laptop", 1500.0, 10)
-    assert str(product) == 'Laptop, 1500.0 руб. Остаток на складе:10 шт.'
-
+    assert str(product) == 'Laptop, 1500.0 руб. Остаток: 10 шт.'
 
 def test_string_display_category():
     category = Category("Electronics", "Category for electronics")
     product = Product("Laptop", "High-performance laptop", 1500, 10)
     category.add_product(product)
-    assert str(category) == 'Electronics, количество продуктов: 1 шт.'
+    phone = Product("Phone", "A smartphone", 500.0, 5)
+    category.add_product(phone)
+    assert str(category) == "Electronics, количество продуктов: 15 шт."
+
+def test_category_average_price():
+    category = Category("Electronics", "Category for electronics")
+    product = Product("Laptop", "High-performance laptop", 1500, 10)
+    category.add_product(product)
+    phone = Product("Phone", "A smartphone", 500.0, 5)
+    category.add_product(phone)
+
+    assert category.average_price() == (1000 * 10 + 500 * 5) / 15
+
 
 
 def test_food_addition():
