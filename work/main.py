@@ -18,7 +18,8 @@ class Category:
     goods: str
 
     total_categories = 0
-    total_unique_products = set()
+   # total_unique_products = set()
+    total_products = []
 
     def __init__(self, name, description):
         self.name = name
@@ -26,18 +27,20 @@ class Category:
         self.__products = []
         Category.total_categories += 1
 
+    #def __str__(self):
+      #  return f'{self.name}, количество продуктов:{len(self.__products)} шт.'
     def __str__(self):
-        return f'{self.name}, количество продуктов: {len(self.__products)} шт.'
+        total_quantity = sum(product.quantity for product in self.products)
+        return f'{self.name}, количество продуктов: {total_quantity} шт.'
 
     def __len__(self):
         return len(self.__products)
 
 
     def add_product(self, product):
-        if isinstance(product, Product) or issubclass(type(product), Product):
-            self.__products.append(product)
-        else:
-            raise TypeError("Можно добавлять только объекты класса Product или его наследников")
+        self.products.append(product)
+        #self.__products.append(product)
+
 
     @property
     def products_list(self):
@@ -71,24 +74,30 @@ class Product(ProductABC):
     def __init__(self, name, description, price, quantity):
         if quantity <= 0:
             raise ValueError("Товар с нулевым количеством не может быть добавлен.")
-        super().__init__()
+        #super().__init__()
         self.name = name
         self.description = description
-        self.__price = price
+        self.price = price
+        #self.__price = price
         self.quantity = quantity
-        Category.total_unique_products.add(name)
-
+        #Category.total_unique_products.add(name)
+        #Category.total_products.append(name)
 
     def __len__(self):
         return self.quantity
 
     def __str__(self):
-        return f'{self.name}, {self.__price} руб. Остаток: {self.quantity} шт'
+        return f'{self.name}, {self.price} руб. Остаток: {self.quantity} шт'
+        #return f'{self.name}, {self.__price} руб. Остаток: {self.quantity} шт'
 
     def __add__(self, other):
-        if type(self) is type(other):
-            return self.__price * self.quantity + other.__price * other.quantity
+        if isinstance(other, Product):
+            return self.price * self.quantity + other.price * other.quantity
         raise TypeError("Нельзя складывать товары разных классов")
+   # def __add__(self, other):
+    #    if type(self) is type(other):
+    #        return self.__price * self.quantity + other.__price * other.quantity
+     #   raise TypeError("Нельзя складывать товары разных классов")
 
     @staticmethod
     def create_new_product(name, description, price, quantity):
@@ -154,4 +163,4 @@ class Order(OrderableItem):
     def __str__(self):
         return f'Заказ: {self.item_link}\nКоличество: {self.item_quantity}\nИтоговая стоимость: {self.total_price}'
 
-''
+
